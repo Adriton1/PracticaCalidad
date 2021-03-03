@@ -1,0 +1,242 @@
+Sevilla
+Andalucía
+140.8
+688592
+688592
+0
+3731
+0
+Mérida, Madrid, Murcia, Algeciras, Málaga
+
+
+Zaragoza
+Aragón
+988.51
+674997
+674997
+0
+3905
+0
+Barcelona, Valencia, Madrid, Logroño, Pamplona
+
+
+Oviedo
+Asturias
+186.73
+220406
+220406
+0
+1039
+0
+Santiago de Compostela, Santander, Valladolid
+Madrid
+
+Palma de Mallorca
+Islas Baleares
+213.54
+416065
+416065
+0
+1381
+0
+
+Madrid, Barcelona, Málaga, Santa Cruz de Tenerife, Las Palmas de Gran Canaria
+Valencia, Barcelona
+Santa Cruz de Tenerife
+Canarias
+150.5
+207312
+207312
+0
+960
+0
+
+Madrid, Barcelona, Palma de Mallorca, Málaga
+Las Palmas de Gran Canaria
+Las Palmas de Gran Canaria
+Canarias
+101.16
+379925
+379925
+0
+1465
+0
+
+Madrid, Barcelona, Palma de Mallorca, Málaga
+Santa Cruz de Tenerife
+Santander
+Cantabria
+36.2
+172539
+172539
+0
+907
+0
+Oviedo, Vitoria, Valladolid
+
+
+Toledo
+Castilla-La Mancha
+235.76
+84873
+84873
+0
+1359
+0
+Madrid, Mérida
+
+
+Valladolid
+Castilla y León
+197.05
+298412
+298412
+0
+1366
+0
+Santiago de Compostela, Oviedo, Santander, Vitoria, Logroño, Mérida, Madrid
+
+
+Barcelona
+Cataluña
+101.35
+1636762
+1636762
+0
+13997
+0
+Zaragoza, Pamplona
+Madrid, Palma de Mallorca, Málaga, Santa Cruz de Tenerife, Las Palmas de Gran Canaria
+Palma de Mallorca
+Ceuta
+Ceuta
+18.5
+85209
+85209
+0
+292
+0
+
+
+Algeciras
+Mérida
+Extremadura
+165.19
+59335
+59335
+0
+184
+0
+Valladolid, Santiago de Compostela, Madrid, Toledo, Sevilla
+
+
+Santiago de Compostela
+Galicia
+221.84
+97260
+97260
+0
+272
+0
+Valladolid, Mérida, Oviedo
+Madrid
+
+Logroño
+La Rioja
+79.55
+151136
+151136
+0
+453
+0
+Vitoria, Pamplona, Zaragoza, Valladolid, Madrid
+
+
+Madrid
+Comunidad de Madrid
+604.45
+3266126
+3266126
+0
+6205
+0
+Mérida, Toledo, Valladolid, Murcia, Valencia, Zaragoza, Logroño, Vitoria, Sevilla, Málaga
+Barcelona, Palma de Mallorca, Málaga, Santa Cruz de Tenerife, Las Palmas de Gran Canaria, Oviedo, Santiago de Compostela
+
+Melilla
+Melilla
+12.3
+84708
+84708
+0
+169
+0
+
+
+Málaga
+Murcia
+Región de Murcia
+881.86
+453258
+453258
+0
+1042
+0
+Sevilla, Madrid, Valencia, Málaga
+
+
+Pamplona
+Navarra
+25.14
+201653
+201653
+0
+464
+0
+Vitoria, Logroño, Zaragoza
+
+
+Valencia
+Comunidad Valenciana
+134.65
+794288
+794288
+0
+1589
+0
+Barcelona, Madrid, Murcia, Zaragoza
+
+Palma de Mallorca
+Vitoria
+Pais Vasco
+276.08
+251774
+251774
+0
+656
+0
+Logroño, Valladolid, Santander, Pamplona, Madrid
+
+
+Málaga
+Andalucía
+398.25
+574654
+574654
+0
+888
+0
+Sevilla, Madrid, Algeciras, Murcia
+Madrid, Barcelona, Palma de Mallorca, Santa Cruz de Tenerife, Las Palmas de Gran Canaria
+Melilla
+Algeciras
+Andalucía
+85.9
+121957
+121957
+0
+207
+0
+Sevilla, Málaga
+
+Ceuta

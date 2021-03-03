@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Make Your Covid</string>
+    <string name="title_activity_splash">Make Your Covid</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="ajedile_knights">A(jed)ile Knights</string>
+    <string name="nombre_aplicacion">MAKE.YOUR.COVID</string>
+    <string name="fondo_men">Fondo menú</string>
+    <string name="mapa">Mapa</string>
+    <string name="acciones">Acciones</string>
+    <string name="icono_app">Icono app</string>
+    <string name="salir">Salir</string>
+    <string name="fondo_ajustes">Fondo ajustes</string>
+    <string name="fondo_info">Fondo info</string>
+    <string name="jugar">JUGAR</string>
+    <string name="info">Info</string>
+    <string name="bot_n_de_ayuda">Botón de ayuda</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="text_help">
+    "Este juego te permite infectar a la población española en función de las ciudades que selecciones para que comience a expandirse el virus."</string>
+    <string name="text_info">
+    MAKE.YOUR.COVID</string>
+</resources>
