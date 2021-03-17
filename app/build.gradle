@@ -4,12 +4,6 @@ plugins {
     id("maven-publish")
 }
 
-allprojects {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-    }
-}
-
 android {
     compileSdkVersion 30
     buildToolsVersion '30.0.3'
