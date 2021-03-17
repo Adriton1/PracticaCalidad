@@ -23,5 +23,4 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.pracprocesos", appContext.getPackageName());
     }
-    //cambio
 }
