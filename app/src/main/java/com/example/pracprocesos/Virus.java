@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Virus implements Serializable {
-
+    //
     private String nombre;
     private int poblacion;
     private int sanos;
@@ -121,6 +121,16 @@ public class Virus implements Serializable {
             this.setSanos(this.getSanos()+entry.getValue().getSanos());
             this.setInfectados(this.getInfectados()+entry.getValue().getInfectados());
             this.setMuertos(this.getMuertos()+entry.getValue().getMuertos());
+        }
+    }
+    public boolean isEveryoneDead(ConcurrentHashMap<String, Ciudad> grafo){
+        for (Map.Entry<String, Ciudad> entry : grafo.entrySet()) {
+            if(this.getPoblacion()==0){
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 }
