@@ -123,4 +123,14 @@ public class Virus implements Serializable {
             this.setMuertos(this.getMuertos()+entry.getValue().getMuertos());
         }
     }
+    public boolean isEveryoneDead(ConcurrentHashMap<String, Ciudad> grafo){
+        for (Map.Entry<String, Ciudad> entry : grafo.entrySet()) {
+            if(this.getPoblacion()==0){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
 }
