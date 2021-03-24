@@ -126,6 +126,7 @@ public class Virus implements Serializable {
     public boolean isEveryoneDead(ConcurrentHashMap<String, Ciudad> grafo){
         for (Map.Entry<String, Ciudad> entry : grafo.entrySet()) {
             if(this.getPoblacion()==29){
+
                 return true;
             }
             else {
