@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Virus implements Serializable {
-
+    //
     private String nombre;
     private int poblacion;
     private int sanos;
@@ -125,7 +125,8 @@ public class Virus implements Serializable {
     }
     public boolean isEveryoneDead(ConcurrentHashMap<String, Ciudad> grafo){
         for (Map.Entry<String, Ciudad> entry : grafo.entrySet()) {
-            if(this.getPoblacion()==0){
+            if(this.getPoblacion()==29){
+
                 return true;
             }
             else {
