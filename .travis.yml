@@ -1,6 +1,7 @@
 language: android
 sudo: required
 jdk: oraclejdk11
+dist: trusty
 
 env:
   global:
@@ -34,8 +35,7 @@ cache:
 
 before_script:
   - chmod +x gradlew
-script:
-  - ./gradlew clean build
+
 addons:
 sonarqube:
         organization: "grupotres"
