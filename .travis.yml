@@ -15,10 +15,10 @@ android:
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
     - android-$ANDROID_API_LEVEL
     - extra-android-m2repository
+    - - android-$ANDROID_EMULATOR_LEVEL
+    - sys-img-armeabi-v7a-google_apis-$ANDROID_EMULATOR_LEVEL
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+    - '.+'
 
 before_install:
   - touch $HOME/.android/repositories.cfg
