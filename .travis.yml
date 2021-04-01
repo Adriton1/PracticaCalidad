@@ -5,7 +5,7 @@ dist: trusty
 
 before_install:
   - unset JAVA_OPTS
-  - yes | sdkmanager --licenses
+  - yes | sdkmanager "platforms;android-30"
   - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
   - touch $HOME/.android/repositories.cfg
   - chmod +x gradlew
