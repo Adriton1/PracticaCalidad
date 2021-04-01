@@ -3,7 +3,11 @@ sudo: required
 jdk: oraclejdk11
 dist: trusty
 
-
+before_install:
+  - touch $HOME/.android/repositories.cfg
+  - yes | sdkmanager "platforms;android-30"
+  - yes | sdkmanager "build-tools;30.0.2"
+  - chmod +x gradlew
 android:
   components:
       - tools
@@ -14,11 +18,7 @@ android:
   licenses:
     - '.+'
 
-before_install:
-  - touch $HOME/.android/repositories.cfg
-  - yes | sdkmanager "platforms;android-30"
-  - yes | sdkmanager "build-tools;30.0.2"
-  - chmod +x gradlew
+
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
