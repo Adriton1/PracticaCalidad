@@ -4,11 +4,12 @@ jdk: oraclejdk11
 dist: trusty
 
 before_install:
+  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
   - touch $HOME/.android/repositories.cfg
   - yes | sdkmanager "platforms;android-30"
   - yes | sdkmanager "build-tools;30.0.2"
   - chmod +x gradlew
-  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
+
 android:
   components:
       - tools
