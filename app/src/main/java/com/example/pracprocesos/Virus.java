@@ -19,16 +19,16 @@ public class Virus implements Serializable {
     private double Raire;
     private double Rmar;
 
-    public Virus(){
+    public Virus() {
         this.nombre = "nombre";
         this.sanos = 0;
         this.infectados = 0;
         this.muertos = 0;
-        this.mortalidad=0.05;
+        this.mortalidad = 0.05;
         this.R = 1.5;
-        this.Rtierra= R;
-        this.Raire= R*0.5;
-        this.Rmar= R*2;
+        this.Rtierra = R;
+        this.Raire = R * 0.5;
+        this.Rmar = R * 2;
     }
 
     public String getNombre() {
@@ -117,20 +117,22 @@ public class Virus implements Serializable {
         this.setInfectados(0);
         this.setMuertos(0);
         for (Map.Entry<String, Ciudad> entry : grafo.entrySet()) {
-            this.setPoblacion(this.getPoblacion()+entry.getValue().getPoblacion());
-            this.setSanos(this.getSanos()+entry.getValue().getSanos());
-            this.setInfectados(this.getInfectados()+entry.getValue().getInfectados());
-            this.setMuertos(this.getMuertos()+entry.getValue().getMuertos());
+            this.setPoblacion(this.getPoblacion() + entry.getValue().getPoblacion());
+            this.setSanos(this.getSanos() + entry.getValue().getSanos());
+            this.setInfectados(this.getInfectados() + entry.getValue().getInfectados());
+            this.setMuertos(this.getMuertos() + entry.getValue().getMuertos());
         }
     }
-    public boolean isEveryoneDead(ConcurrentHashMap<String, Ciudad> grafo){
+
+    public boolean isEveryoneDead(ConcurrentHashMap<String, Ciudad> grafo) {
         for (Map.Entry<String, Ciudad> entry : grafo.entrySet()) {
-            if(this.getPoblacion()==0){
+            if (this.getPoblacion() == 0) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
+        return false;
     }
+
 }
