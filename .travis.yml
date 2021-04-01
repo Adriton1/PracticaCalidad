@@ -2,6 +2,8 @@ language: java
 jdk:
   -oraclejdk11
 dist: trusty
+before_install:
+  – chmod +x gradlew
 addons:
 sonarqube:
         organization: "grupotres"
