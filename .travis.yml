@@ -12,17 +12,16 @@ env:
 android:
   components:
     - tools
-    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - android-$ANDROID_API_LEVEL
-    - extra-android-m2repository
-    - - android-$ANDROID_EMULATOR_LEVEL
-    - sys-img-armeabi-v7a-google_apis-$ANDROID_EMULATOR_LEVEL
+      - platform-tools
+      - tools
+      - extra-android-m2repository
   licenses:
     - '.+'
 
 before_install:
   - touch $HOME/.android/repositories.cfg
-  - yes | ~/Android/Sdk/tools/bin/sdkmanager --licenses
+  - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager "build-tools;28.0.3"
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -35,11 +34,4 @@ cache:
     - $HOME/.android/build-cache
 
 
-addons:
-sonarqube:
-        organization: "grupotres"
-        token:
-          secure: "4b4e8b96a8e6c7116c456d841a00a7d504b8a51a" # encrypted value of your token
 
-          script:
-            - sonnar-scanner
