@@ -22,7 +22,10 @@ android:
     # if you need to run emulator(s) during your tests
     - quemu-system-x86_64
     addons:
-      sonarcloud:
+      sonarqube:
         organization: "grupotres"
         token:
           secure: "4b4e8b96a8e6c7116c456d841a00a7d504b8a51a" # encrypted value of your token
+
+          script:
+            - sonnar-scanner
