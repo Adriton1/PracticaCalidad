@@ -1,13 +1,11 @@
 package com.example.pracprocesos;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,18 +20,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static java.lang.Math.random;
-
 public class MapActivity extends AppCompatActivity {
 
     TextView lugar, sanos, infectados, muertos, textTurno;
     Button botonVirus, botonInfectar;
-    ImageView imagen_mapa, mapa_zonas;
-    ConcurrentHashMap<String, Ciudad> grafo = new ConcurrentHashMap<String,Ciudad>();
+    ImageView imagenMapa, mapaZonas;
+    ConcurrentHashMap<String, Ciudad> gameGraph = new ConcurrentHashMap<String,Ciudad>();
     Virus virus = new Virus();
     int turno = -1;
     Set<String> infectadas = new HashSet<String>();
-
+    HashMap<Integer,String> colorToCity=new HashMap<Integer, String>();
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,69 +41,82 @@ public class MapActivity extends AppCompatActivity {
         virus.setNombre((String)getIntent().getSerializableExtra("virus"));
         botonVirus = (Button) findViewById(R.id.botonVirus);
         botonVirus.setText(virus.getNombre());
-        grafo = InputData("newGameData.txt");
-        virus.actualizar(grafo);
+        gameGraph = InputData("newGameData.txt");
+        virus.actualizar(gameGraph);
         mostrarVirus(virus);
 
-        botonVirus.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                virus.actualizar(grafo);
-                mostrarVirus(virus);
-            }
+        botonVirus.setOnClickListener(v -> {
+            virus.actualizar(gameGraph);
+            mostrarVirus(virus);
         });
 
-        imagen_mapa = (ImageView) findViewById(R.id.imagen_mapa);
-        mapa_zonas = (ImageView) findViewById(R.id.mapa_areas_colores);
+        imagenMapa = (ImageView) findViewById(R.id.imagen_mapa);
+        mapaZonas = (ImageView) findViewById(R.id.mapa_areas_colores);
 
-        imagen_mapa.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int action = event.getAction();
-                if (action == MotionEvent.ACTION_UP) {
-                    clickMapa((int) event.getX(), (int) event.getY());
-                }
-                return true;
+        imagenMapa.setOnTouchListener((v, event) -> {
+            int action = event.getAction();
+            if (action == MotionEvent.ACTION_UP) {
+                clickMapa((int) event.getX(), (int) event.getY());
             }
+            return true;
         });
 
         botonInfectar = (Button) findViewById(R.id.infectar);
 
-        botonInfectar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lugar = (TextView) findViewById(R.id.lugar);
-                String ciudad = (String) lugar.getText();
+        botonInfectar.setOnClickListener((View.OnClickListener) v -> {
+            lugar = (TextView) findViewById(R.id.lugar);
+            String ciudad = (String) lugar.getText();
 
-                if ((turno > -1) || (grafo.get(ciudad) != null)) {
-                    if (turno > -1) {
-                        grafo = viajes(grafo);
-                        for (String c : infectadas) {
-                            grafo = propagacion(grafo,c);
-                        }
+            if ((turno > -1) || (gameGraph.get(ciudad) != null)) {
+                if (turno > -1) {
+                    gameGraph = viajes(gameGraph);
+                    for (String c : infectadas) {
+                        gameGraph = propagacion(gameGraph,c);
                     }
-                    else {   // Primer turno, hace falta ciudad
-                        grafo.get(ciudad).sumSanos(-10);
-                        grafo.get(ciudad).sumInfectados(10);
-                        botonInfectar.setText("Siguiente turno");
-                        infectadas.add(ciudad);
-                    }
-                    if (grafo.get(ciudad) != null) {
-                        cambiarDatosLateral(ciudad,
-                                grafo.get(ciudad).getSanos(),
-                                grafo.get(ciudad).getInfectados(),
-                                grafo.get(ciudad).getMuertos());
-                    }else{
-                        virus.actualizar(grafo);
-                        mostrarVirus(virus);
-                    }
-                    turno++;
-                    String aux = "Turno " + turno;
-                    textTurno.setText(aux);
                 }
-
+                else {   // Primer turno, hace falta ciudad
+                    gameGraph.get(ciudad).sumSanos(-10);
+                    gameGraph.get(ciudad).sumInfectados(10);
+                    botonInfectar.setText("Siguiente turno");
+                    infectadas.add(ciudad);
+                }
+                if (gameGraph.get(ciudad) != null) {
+                    cambiarDatosLateral(ciudad,
+                            gameGraph.get(ciudad).getSanos(),
+                            gameGraph.get(ciudad).getInfectados(),
+                            gameGraph.get(ciudad).getMuertos());
+                }else{
+                    virus.actualizar(gameGraph);
+                    mostrarVirus(virus);
+                }
+                turno++;
+                String aux = "Turno " + turno;
+                textTurno.setText(aux);
             }
+
         });
+        colorToCity.put(Color.parseColor("#A24FFF"),"Valladolid");
+        colorToCity.put(Color.parseColor("#FFCB7F"),"Santiago de Compostela");
+        colorToCity.put(Color.parseColor("#D2A9CB"),"Oviedo");
+        colorToCity.put(Color.parseColor("#F07995"),"Santander");
+        colorToCity.put(Color.parseColor("#8AC277"),"Vitoria");
+        colorToCity.put(Color.parseColor("#FF9700"),"Pamplona");
+        colorToCity.put(Color.parseColor("#4D72FF"),"Logroño");
+        colorToCity.put(Color.parseColor("#BBC19F"),"Zaragoza");
+        colorToCity.put(Color.parseColor("#A59794"),"Barcelona");
+        colorToCity.put(Color.parseColor("#BD5858"),"Madrid");
+        colorToCity.put(Color.parseColor("#FFD8BB"),"Mérida");
+        colorToCity.put(Color.parseColor("#FFF24D"),"Toledo");
+        colorToCity.put(Color.parseColor("#FEA98C"),"Valencia");
+        colorToCity.put(Color.parseColor("#669BA1"),"Palma de Mallorca");
+        colorToCity.put(Color.parseColor("#009D78"),"Murcia");
+        colorToCity.put(Color.parseColor("#FF3A3A"),"Sevilla");
+        colorToCity.put(Color.parseColor("#D46CD3"),"Málaga");
+        colorToCity.put(Color.parseColor("#FFA6FE"),"Algeciras");
+        colorToCity.put(Color.parseColor("#D5D5D5"),"Ceuta");
+        colorToCity.put(Color.parseColor("#434343"),"Melilla");
+        colorToCity.put(Color.parseColor("#DFFF74"),"Las Palmas de Gran Canaria");
+        colorToCity.put(Color.parseColor("#728926"),"Santa Cruz de Tenerife");
     }
 
     public void cambiarDatosLateral(String sLugar, int numSanos, int numInfectados, int numMuertos){
@@ -135,9 +144,9 @@ public class MapActivity extends AppCompatActivity {
     public void clickMapa(int coord_x, int coord_y) {
 
         int color = colorDePunto(coord_x,coord_y);
-        String sitio = null;
-
-        if (colorSimilar(color, Color.parseColor("#A24FFF"))) {
+        String sitio = "España";
+        sitio=colorToCity.get(color);
+        /*if (colorSimilar(color, Color.parseColor("#A24FFF"))) {
             sitio = "Valladolid";
         }
         else if (colorSimilar(color, Color.parseColor("#FFCB7F"))) {
@@ -205,27 +214,27 @@ public class MapActivity extends AppCompatActivity {
         }
         else {
             sitio = "España";
-        }
+        }*/
         System.out.println(sitio);
-        if (grafo.get(sitio) != null){
-        System.out.println("Sanos: " + grafo.get(sitio).getSanos());
-        System.out.println("Infectados: " + grafo.get(sitio).getInfectados());
-        System.out.println("Muertos: " + grafo.get(sitio).getMuertos());
+        if (gameGraph.get(sitio) != null){
+        System.out.println("Sanos: " + gameGraph.get(sitio).getSanos());
+        System.out.println("Infectados: " + gameGraph.get(sitio).getInfectados());
+        System.out.println("Muertos: " + gameGraph.get(sitio).getMuertos());
             cambiarDatosLateral(sitio,
-                    grafo.get(sitio).getSanos(),
-                    grafo.get(sitio).getInfectados(),
-                    grafo.get(sitio).getMuertos());
+                    gameGraph.get(sitio).getSanos(),
+                    gameGraph.get(sitio).getInfectados(),
+                    gameGraph.get(sitio).getMuertos());
         } else {
-            virus.actualizar(grafo);
+            virus.actualizar(gameGraph);
             mostrarVirus(virus);
         }
 
     }
 
     public int colorDePunto(int x, int y) {
-        this.mapa_zonas.setDrawingCacheEnabled(true);
-        Bitmap puntos = Bitmap.createBitmap(this.mapa_zonas.getDrawingCache());
-        this.mapa_zonas.setDrawingCacheEnabled(false);
+        this.mapaZonas.setDrawingCacheEnabled(true);
+        Bitmap puntos = Bitmap.createBitmap(this.mapaZonas.getDrawingCache());
+        this.mapaZonas.setDrawingCacheEnabled(false);
         return puntos.getPixel(x,y);
     }
 
@@ -354,156 +363,37 @@ public class MapActivity extends AppCompatActivity {
             Ciudad origen = grafo.get(c);
             int infectados = origen.getInfectados();
             if ((infectados > 500)) {
-                int viajaTierra, viajaAire, viajaMar;
+                int viajaTierra=0;
+                int viajaAire=0;
+                int viajaMar=0;
                 ArrayList<String> conexiones_tierra = origen.getTierra();
                 ArrayList<String> conexiones_mar = origen.getMar();
                 ArrayList<String> conexiones_aire = origen.getAire();
-                if (!conexiones_tierra.isEmpty()) {
-                    for (String t : conexiones_tierra) {
-                        double prob = Math.random();
-                        if (!infec_antiguos.contains(t) && (prob > 0.6)) {
-                            Ciudad destino = grafo.get(t);
-                            int sanos_destino = destino.getSanos();
-                            viajaTierra = (int) Math.round((0.035 * infectados * 0.9) + (0.035 * infectados * Math.random() * 0.1));
-                            destino.sumInfectados(viajaTierra);
-                            destino.sumSanos(-viajaTierra);
-                            infectadas.add(t);
-                        }
-                    }
-                }
-                if (!conexiones_aire.isEmpty()) {
-                    for (String a : conexiones_aire) {
-                        double prob = Math.random();
-                        if (!infec_antiguos.contains(a) && (prob > 0.6)) {
-                            Ciudad destino = grafo.get(a);
-                            int sanos_destino = destino.getSanos();
-                            viajaAire = (int) Math.round((0.012 * infectados * 0.9) + (0.012 * infectados * Math.random() * 0.1));
-                            destino.sumInfectados(viajaAire);
-                            destino.sumSanos(-viajaAire);
-                            infectadas.add(a);
-                        }
-                    }
-                }
-                if (!conexiones_mar.isEmpty()) {
-                    for (String m : conexiones_mar) {
-                        double prob = Math.random();
-                        if (!infec_antiguos.contains(m) && (prob > 0.6)) {
-                            Ciudad destino = grafo.get(m);
-                            int sanos_destino = destino.getSanos();
-                            viajaMar = (int) Math.round((0.003 * infectados * 0.9) + (0.003 * infectados * Math.random() * 0.1));
-                            destino.sumInfectados(viajaMar);
-                            destino.sumSanos(-viajaMar);
-                            infectadas.add(m);
-                        }
-                    }
-                }
+
+                auxFunction(infec_antiguos,conexiones_tierra,viajaTierra,grafo,infectados);
+
+                auxFunction(infec_antiguos,conexiones_mar,viajaMar,grafo,infectados);
+
+                auxFunction(infec_antiguos,conexiones_aire,viajaAire,grafo,infectados);
+
             }
         }
 
         return grafo;
     }
-
-    /*HashMap<String, Ciudad> viajes(@NotNull HashMap<String, Ciudad> grafo, String nomOrigen){
-        Ciudad origen = grafo.remove(nomOrigen);
-        int poblacion = origen.getPoblacion();
-        int viajaTierra = (int) Math.round(Math.random() * 0.035 * poblacion);
-        int viajaMar = (int) Math.round(Math.random() * 0.003 * poblacion);
-        int viajaAire = (int) Math.round(Math.random() * 0.012 * poblacion);
-
-        float sigmaInf = origen.getInfectados()/origen.getSanos();
-        int infTierra = (int) Math.round(sigmaInf * viajaTierra);
-        int infMar = (int) Math.round(sigmaInf * viajaMar);
-        int infAire = (int) Math.round(sigmaInf * viajaAire);
-
-        int infAcumulado = 0, sanAcumulado = 0;
-        int nTierra = origen.getTierra().size();
-        int nMar = origen.getMar().size();
-        int nAire = origen.getAire().size();
-        String nomDestino = null;
-        Ciudad destino = null;
-        int viajaInfectados = 0, viajaSanos = 0;
-        for (int i = 0; i < nTierra - 1; i++){
-            nomDestino = origen.getTierra().get(i);
-            destino = grafo.remove(nomDestino);
-            viajaInfectados = (int) Math.round(infTierra / nTierra);
-            viajaSanos = (int) Math.round(viajaTierra / nTierra) - viajaInfectados;
-            infAcumulado += viajaInfectados;
-            sanAcumulado += viajaSanos;
-            origen.sumSanos(-viajaSanos);
-            origen.sumInfectados(-viajaInfectados);
-            origen.sumPoblacion(-viajaSanos - viajaInfectados);
-            destino.sumSanos(viajaSanos);
-            destino.sumInfectados(viajaInfectados);
-            destino.sumPoblacion(viajaSanos + viajaInfectados);
-            grafo.put(nomDestino, destino);
-        };
-        nomDestino = origen.getTierra().get(nTierra-1);
-        destino = grafo.remove(nomDestino);
-        if (Objects.nonNull(destino)) {
-            viajaInfectados = infTierra - infAcumulado;
-            viajaSanos = viajaTierra - infTierra - sanAcumulado;
-            origen.sumSanos(-viajaSanos);
-            origen.sumInfectados(-viajaInfectados);
-            destino.sumSanos(viajaSanos);
-            destino.sumInfectados(viajaInfectados);
-            grafo.put(nomDestino, destino);
+    private void auxFunction(Set<String> elder,ArrayList<String> myList,int myNum,ConcurrentHashMap<String, Ciudad> graph,int infectados){
+        if (!myList.isEmpty()) {
+            for (String m : myList) {
+                double prob = Math.random();
+                if (!elder.contains(m) && (prob > 0.6)) {
+                    Ciudad destino = graph.get(m);
+                    myNum = (int) Math.round((0.003 * infectados * 0.9) + (0.003 * infectados * Math.random() * 0.1));
+                    destino.sumInfectados(myNum);
+                    destino.sumSanos(-myNum);
+                    infectadas.add(m);
+                }
+            }
         }
-
-        for (int i = 0; i < nAire - 1; i++){
-            nomDestino = origen.getAire().get(i);
-            destino = grafo.remove(nomDestino);
-            viajaInfectados = (int) Math.round(infAire / nAire);
-            viajaSanos = (int) Math.round(viajaAire / nAire) - viajaInfectados;
-            infAcumulado += viajaInfectados;
-            sanAcumulado += viajaSanos;
-            origen.sumSanos(-viajaSanos);
-            origen.sumInfectados(-viajaInfectados);
-            origen.sumPoblacion(-viajaSanos - viajaInfectados);
-            destino.sumSanos(viajaSanos);
-            destino.sumInfectados(viajaInfectados);
-            destino.sumPoblacion(viajaSanos + viajaInfectados);
-            grafo.put(nomDestino, destino);
-        };
-        nomDestino = origen.getAire().get(nAire-1);
-        destino = grafo.remove(nomDestino);
-        if (Objects.nonNull(destino)) {
-            viajaInfectados = infAire - infAcumulado;
-            viajaSanos = viajaAire - infAire - sanAcumulado;
-            origen.sumSanos(-viajaSanos);
-            origen.sumInfectados(-viajaInfectados);
-            destino.sumSanos(viajaSanos);
-            destino.sumInfectados(viajaInfectados);
-            grafo.put(nomDestino, destino);
-        }
-        for (int i = 0; i < nMar - 1; i++){
-            nomDestino = origen.getMar().get(i);
-            destino = grafo.remove(nomDestino);
-            viajaInfectados = (int) Math.round(infMar / nMar);
-            viajaSanos = (int) Math.round(viajaMar / nMar) - viajaInfectados;
-            infAcumulado += viajaInfectados;
-            sanAcumulado += viajaSanos;
-            origen.sumSanos(-viajaSanos);
-            origen.sumInfectados(-viajaInfectados);
-            origen.sumPoblacion(-viajaSanos - viajaInfectados);
-            destino.sumSanos(viajaSanos);
-            destino.sumInfectados(viajaInfectados);
-            destino.sumPoblacion(viajaSanos + viajaInfectados);
-            grafo.put(nomDestino, destino);
-        };
-        nomDestino = origen.getMar().get(nMar-1);
-        destino = grafo.remove(nomDestino);
-        if (Objects.nonNull(destino)) {
-            viajaInfectados = infMar - infAcumulado;
-            viajaSanos = viajaMar - infMar - sanAcumulado;
-            origen.sumSanos(-viajaSanos);
-            origen.sumInfectados(-viajaInfectados);
-            destino.sumSanos(viajaSanos);
-            destino.sumInfectados(viajaInfectados);
-            grafo.put(nomDestino, destino);
-        }
-
-        grafo.put(nomOrigen, origen);
-        return grafo;
-    }*/
+    }
 
 }
