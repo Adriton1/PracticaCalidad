@@ -22,7 +22,10 @@ android:
     # if you need to run emulator(s) during your tests
     - quemu-system-x86_64
     addons:
-      sonarcloud:
-        organization: "grupotres"
-        token:
-          secure: "4561252cd7f7dcdddb5edde3788154abc067d9c4" # encrypted value of your travis encrypt 4561252cd7f7dcdddb5edde3788154abc067d9c4
+  sonarcloud:
+    organization: "grupotres"
+    token:
+      secure: "4561252cd7f7dcdddb5edde3788154abc067d9c4" # encrypted value of your token
+
+script:
+  - ./gradlew sonarqube
