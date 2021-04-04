@@ -25,4 +25,4 @@ android:
       sonarcloud:
         organization: "grupotres"
         token:
-          secure: "9c578f5d5f896d968efa0c3b4b312491d0e5aa8f" # encrypted value of your token travis encrypt 9c578f5d5f896d968efa0c3b4b312491d0e5aa8f
+          secure: "fff85ae834cbb092ef40bca78d95a52d667040f1" # encrypted value of your travis encrypt fff85ae834cbb092ef40bca78d95a52d667040f1
