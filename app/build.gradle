@@ -41,7 +41,7 @@ sonarqube {
         property "sonar.projectKey", "Adriton1_PracticaCalidad"
         property "sonar.organization", "grupotres"
         property "sonar.host.url", "https://sonarcloud.io/"
-        property "sonar.login", "4b4e8b96a8e6c7116c456d841a00a7d504b8a51a"
+        property "sonar.login", "9c578f5d5f896d968efa0c3b4b312491d0e5aa8f"
         property "sonar.branch.name", System.getenv("BRANCH")
     }
 }
