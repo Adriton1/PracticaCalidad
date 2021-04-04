@@ -1,36 +1,28 @@
 language: android
-sudo: required
-jdk: oraclejdk8
 dist: trusty
-
-before_install:
-  - unset JAVA_OPTS
-  - yes | sdkmanager "platforms;android-30"
-  - export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
-  - touch $HOME/.android/repositories.cfg
-  - chmod +x gradlew
-
 android:
   components:
-      - tools
-      - android-30
-      - platform-tools
-      - tools
-      - extra-android-m2repository
-  licenses:
-    - '.+'
+    # Uncomment the lines below if you want to
+    # use the latest revision of Android SDK Tools
+    # - tools
+    # - platform-tools
 
+    # The BuildTools version used by your project
+    - build-tools-30.0.3
 
+    # The SDK version used to compile your project
+    - android-30
 
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    # Additional components
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
 
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
-
-
-
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - quemu-system-x86_64
+    addons:
+      sonarcloud:
+        organization: "grupotres"
+        token:
+          secure: "4b4e8b96a8e6c7116c456d841a00a7d504b8a51a" # encrypted value of your token
