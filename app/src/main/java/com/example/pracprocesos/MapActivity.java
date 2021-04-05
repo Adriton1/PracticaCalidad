@@ -146,75 +146,7 @@ public class MapActivity extends AppCompatActivity {
         int color = colorDePunto(coord_x,coord_y);
         String sitio = "España";
         sitio=colorToCity.get(color);
-        /*if (colorSimilar(color, Color.parseColor("#A24FFF"))) {
-            sitio = "Valladolid";
-        }
-        else if (colorSimilar(color, Color.parseColor("#FFCB7F"))) {
-            sitio = "Santiago de Compostela";
-        }
-        else if (colorSimilar(color, Color.parseColor("#D2A9CB"))) {
-            sitio = "Oviedo";
-        }
-        else if (colorSimilar(color, Color.parseColor("#F07995"))) {
-            sitio = "Santander";
-        }
-        else if (colorSimilar(color, Color.parseColor("#8AC277"))) {
-            sitio = "Vitoria";
-        }
-        else if (colorSimilar(color, Color.parseColor("#FF9700"))) {
-            sitio = "Pamplona";
-        }
-        else if (colorSimilar(color, Color.parseColor("#4D72FF"))) {
-            sitio = "Logroño";
-        }
-        else if (colorSimilar(color, Color.parseColor("#BBC19F"))) {
-            sitio = "Zaragoza";
-        }
-        else if (colorSimilar(color, Color.parseColor("#A59794"))) {
-            sitio = "Barcelona";
-        }
-        else if (colorSimilar(color, Color.parseColor("#BD5858"))) {
-            sitio = "Madrid";
-        }
-        else if (colorSimilar(color, Color.parseColor("#FFD8BB"))) {
-            sitio = "Mérida";
-        }
-        else if (colorSimilar(color, Color.parseColor("#FFF24D"))) {
-            sitio = "Toledo";
-        }
-        else if (colorSimilar(color, Color.parseColor("#FEA98C"))) {
-            sitio = "Valencia";
-        }
-        else if (colorSimilar(color, Color.parseColor("#669BA1"))) {
-            sitio = "Palma de Mallorca";
-        }
-        else if (colorSimilar(color, Color.parseColor("#009D78"))) {
-            sitio = "Murcia";
-        }
-        else if (colorSimilar(color, Color.parseColor("#FF3A3A"))) {
-            sitio = "Sevilla";
-        }
-        else if (colorSimilar(color, Color.parseColor("#D46CD3"))) {
-            sitio = "Málaga";
-        }
-        else if (colorSimilar(color, Color.parseColor("#FFA6FE"))) {
-            sitio = "Algeciras";
-        }
-        else if (colorSimilar(color, Color.parseColor("#D5D5D5"))) {
-            sitio = "Ceuta";
-        }
-        else if (colorSimilar(color, Color.parseColor("#434343"))) {
-            sitio = "Melilla";
-        }
-        else if (colorSimilar(color, Color.parseColor("#DFFF74"))) {
-            sitio = "Las Palmas de Gran Canaria";
-        }
-        else if (colorSimilar(color, Color.parseColor("#728926"))) {
-            sitio = "Santa Cruz de Tenerife";
-        }
-        else {
-            sitio = "España";
-        }*/
+        
         System.out.println(sitio);
         if (gameGraph.get(sitio) != null){
         System.out.println("Sanos: " + gameGraph.get(sitio).getSanos());
