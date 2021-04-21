@@ -73,11 +73,9 @@ public class Ciudad {
     public void sumSanos(int sanos) {
         if (this.sanos + sanos < 0) {
             this.sanos = 0;
-        }
-        else if (this.sanos + sanos > this.poblacion - this.muertos) {
+        } else if (this.sanos + sanos > this.poblacion - this.muertos) {
             this.sanos = this.poblacion - this.muertos;
-        }
-        else {
+        } else {
             this.sanos += sanos;
         }
     }
@@ -89,11 +87,9 @@ public class Ciudad {
     public void sumInfectados(int infectados) {
         if (this.infectados + infectados < 0) {
             this.infectados = 0;
-        }
-        else if (this.infectados + infectados > this.poblacion - this.muertos){
+        } else if (this.infectados + infectados > this.poblacion - this.muertos) {
             this.infectados = this.poblacion - this.muertos;
-        }
-        else {
+        } else {
             this.infectados += infectados;
         }
     }
@@ -105,11 +101,9 @@ public class Ciudad {
     public void sumMuertos(int muertos) {
         if (this.muertos + muertos > this.poblacion) {
             this.muertos = this.poblacion;
-        }
-        else if (this.muertos + muertos < 0) {
+        } else if (this.muertos + muertos < 0) {
             this.muertos = 0;
-        }
-        else {
+        } else {
             this.muertos += muertos;
         }
     }
@@ -138,9 +132,13 @@ public class Ciudad {
         this.tierra = tierra;
     }
 
-    public ArrayList<String> getAire() { return aire; }
+    public ArrayList<String> getAire() {
+        return aire;
+    }
 
-    public void setAire(ArrayList<String> aire) { this.aire = aire; }
+    public void setAire(ArrayList<String> aire) {
+        this.aire = aire;
+    }
 
     public ArrayList<String> getMar() {
         return mar;
@@ -156,5 +154,9 @@ public class Ciudad {
 
     public void setMuertos(int muertos) {
         this.muertos = muertos;
+    }
+
+    public void setSanos(int sanos) {
+        this.sanos = sanos;
     }
 }

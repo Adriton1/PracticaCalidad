@@ -1,8 +1,10 @@
 package com.example.pracprocesos;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -66,7 +68,10 @@ public class MapActivity extends AppCompatActivity {
         botonInfectar.setOnClickListener((View.OnClickListener) v -> {
             lugar = (TextView) findViewById(R.id.lugar);
             String ciudad = (String) lugar.getText();
-
+            boolean isEveryoneDead= virus.isEveryoneDead(gameGraph);
+            if (isEveryoneDead){
+                finishing();
+            }
             if ((turno > -1) || (gameGraph.get(ciudad) != null)) {
                 if (turno > -1) {
                     gameGraph = viajes(gameGraph);
@@ -117,6 +122,19 @@ public class MapActivity extends AppCompatActivity {
         colorToCity.put(Color.parseColor("#434343"),"Melilla");
         colorToCity.put(Color.parseColor("#DFFF74"),"Las Palmas de Gran Canaria");
         colorToCity.put(Color.parseColor("#728926"),"Santa Cruz de Tenerife");
+    }
+
+    private void finishing() {
+        AlertDialog.Builder alert= new AlertDialog.Builder(this);
+        alert.setMessage("Has Ganado!!!\n"+"España ha sido exterminada" );
+        alert.setPositiveButton("Salir", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        AlertDialog dialog= alert.create();
+        dialog.show();
     }
 
     public void cambiarDatosLateral(String sLugar, int numSanos, int numInfectados, int numMuertos){

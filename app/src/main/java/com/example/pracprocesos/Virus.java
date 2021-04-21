@@ -1,6 +1,7 @@
 package com.example.pracprocesos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -125,16 +126,13 @@ public class Virus implements Serializable {
     }
 
     public boolean isEveryoneDead(ConcurrentHashMap<String, Ciudad> grafo) {
+        int cont = 0;
         for (Map.Entry<String, Ciudad> entry : grafo.entrySet()) {
-            if (this.getPoblacion() == 0) {
-                return true;
-            } else {
-                return false;
+            if (entry.getValue().getPoblacion()==entry.getValue().getMuertos()) {
+                cont++;
             }
         }
-
-        return false;
-
+        return cont == grafo.size();
     }
 
 }
