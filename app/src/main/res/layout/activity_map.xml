@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A7A7A7"
+    android:background="#ECECEC"
+    android:backgroundTint="#989898"
     tools:context=".MapActivity">
 
     <ImageView
@@ -185,6 +186,21 @@
         app:layout_constraintTop_toBottomOf="@+id/botonVirus"
         app:layout_constraintVertical_bias="0.86" />
 
+    <Button
+        android:id="@+id/Salir"
+        android:layout_width="93dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="42dp"
+        android:backgroundTint="#DF0000"
+        android:text="Salir del juego"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonVirus"
+        app:layout_constraintVertical_bias="1.0" />
+
     <TextView
         android:id="@+id/textView_turno"
         android:layout_width="wrap_content"
@@ -196,5 +212,30 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/confirmationText"
+        android:layout_width="232dp"
+        android:layout_height="188dp"
+        android:background="#FF0000"
+        android:text="¿Seguro que quieres salir de esta partida y volver al menú?"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="242dp" />
+
+    <Button
+        android:id="@+id/confirmationYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Si"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="382dp" />
+
+    <Button
+        android:id="@+id/confirmationNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No, volver"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="382dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

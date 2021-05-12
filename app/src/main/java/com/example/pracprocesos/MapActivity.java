@@ -22,8 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MapActivity extends AppCompatActivity {
 
-    TextView lugar, sanos, infectados, muertos, textTurno;
-    Button botonVirus, botonInfectar;
+    TextView lugar, sanos, infectados, muertos, textTurno,confirmationText;
+    Button botonVirus, botonInfectar,botonSalir,confButtonYes,confButtonNo;
     ImageView imagenMapa, mapaZonas;
     ConcurrentHashMap<String, Ciudad> gameGraph = new ConcurrentHashMap<String,Ciudad>();
     Virus virus = new Virus();
@@ -41,7 +41,11 @@ public class MapActivity extends AppCompatActivity {
         virus.setNombre((String)getIntent().getSerializableExtra("virus"));
         botonVirus = (Button) findViewById(R.id.botonVirus);
         botonVirus.setText(virus.getNombre());
+        botonSalir=(Button) findViewById(R.id.Salir);
         gameGraph = InputData("newGameData.txt");
+        confirmationText=(TextView) findViewById(R.id.confirmationText);
+        confButtonYes=(Button) findViewById(R.id.confirmationYes);
+        confButtonNo=(Button) findViewById(R.id.confirmationNo);
         virus.actualizar(gameGraph);
         mostrarVirus(virus);
 
@@ -49,6 +53,20 @@ public class MapActivity extends AppCompatActivity {
             virus.actualizar(gameGraph);
             mostrarVirus(virus);
         });
+        botonSalir.setOnClickListener(v ->{
+            confirmationText.setVisibility(View.VISIBLE);
+            confButtonYes.setVisibility(View.VISIBLE);
+            confButtonNo.setVisibility(View.VISIBLE);
+        });
+        confButtonYes.setOnClickListener(v->{
+
+        });
+        confButtonNo.setOnClickListener(v->{
+
+        });
+        confirmationText.setVisibility(View.INVISIBLE);
+        confButtonYes.setVisibility(View.INVISIBLE);
+        confButtonNo.setVisibility(View.INVISIBLE);
 
         imagenMapa = (ImageView) findViewById(R.id.imagen_mapa);
         mapaZonas = (ImageView) findViewById(R.id.mapa_areas_colores);
