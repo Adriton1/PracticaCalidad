@@ -8,7 +8,8 @@ import cucumber.api.junit.Cucumber;
         plugin = "pretty",
         features = {
                 "src/test/java/com/example/pracprocesos/cucumber/muertos/Muertos.feature",
-                "src/test/java/com/example/pracprocesos/cucumber/lecturaCiudades/LecturaCiudades.feature"
+                "src/test/java/com/example/pracprocesos/cucumber/lecturaCiudades/LecturaCiudades.feature",
+                "src/test/java/com/example/pracprocesos/cucumber/exit/EscenarioExit.feature"
         },
         glue = "com.example.pracprocesos.cucumber"
 )
