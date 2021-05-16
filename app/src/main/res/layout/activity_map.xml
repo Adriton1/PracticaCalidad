@@ -217,25 +217,40 @@
         android:id="@+id/confirmationText"
         android:layout_width="232dp"
         android:layout_height="188dp"
+        android:layout_marginBottom="42dp"
         android:background="#FF0000"
         android:text="¿Seguro que quieres salir de esta partida y volver al menú?"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="242dp" />
-
-    <Button
-        android:id="@+id/confirmationYes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Si"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="382dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmationNo"
+        app:layout_constraintVertical_bias="0.682" />
 
     <Button
         android:id="@+id/confirmationNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="191dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="80dp"
         android:text="No, volver"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="382dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagen_mapa" />
+
+    <Button
+        android:id="@+id/confirmationYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="89dp"
+        android:layout_marginEnd="234dp"
+        android:layout_marginBottom="80dp"
+        android:text="Si"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmationText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
