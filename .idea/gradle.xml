@@ -12,10 +12,13 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/gradle" />
+            <option value="$PROJECT_DIR$/gradle/ androidx.test" />
+            <option value="$PROJECT_DIR$/gradle/ androidx.test/monitor" />
+            <option value="$PROJECT_DIR$/gradle/ androidx.test/monitor/1.3.0@aar" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>
