@@ -9,7 +9,8 @@ import cucumber.api.junit.Cucumber;
         features = {
                 "src/test/java/com/example/pracprocesos/cucumber/muertos/Muertos.feature",
                 "src/test/java/com/example/pracprocesos/cucumber/lecturaCiudades/LecturaCiudades.feature",
-                "src/test/java/com/example/pracprocesos/cucumber/exit/EscenarioExit.feature"
+                "src/test/java/com/example/pracprocesos/cucumber/exit/EscenarioExit.feature",
+                "src/test/java/com/example/pracprocesos/cucumber/notify/notification.feature"
         },
         glue = "com.example.pracprocesos.cucumber"
 )

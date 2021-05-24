@@ -1,10 +1,9 @@
 package com.example.pracprocesos;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -24,8 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MapActivity extends AppCompatActivity {
 
-    TextView lugar, sanos, infectados, muertos, textTurno;
-    Button botonVirus, botonInfectar;
+    TextView lugar, sanos, infectados, muertos, textTurno,confirmationText,notText;
+    Button botonVirus, botonInfectar,botonSalir,confButtonYes,confButtonNo;
     ImageView imagenMapa, mapaZonas;
     ConcurrentHashMap<String, Ciudad> gameGraph = new ConcurrentHashMap<String,Ciudad>();
     Virus virus = new Virus();
@@ -40,10 +39,16 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
 
         TextView textTurno = (TextView) findViewById(R.id.textView_turno);
+        notText=(TextView) findViewById(R.id.notificationText);
+        notText.setVisibility(View.INVISIBLE);
         virus.setNombre((String)getIntent().getSerializableExtra("virus"));
         botonVirus = (Button) findViewById(R.id.botonVirus);
         botonVirus.setText(virus.getNombre());
+        botonSalir=(Button) findViewById(R.id.Salir);
         gameGraph = InputData("newGameData.txt");
+        confirmationText=(TextView) findViewById(R.id.confirmationText);
+        confButtonYes=(Button) findViewById(R.id.confirmationYes);
+        confButtonNo=(Button) findViewById(R.id.confirmationNo);
         virus.actualizar(gameGraph);
         mostrarVirus(virus);
 
@@ -51,6 +56,22 @@ public class MapActivity extends AppCompatActivity {
             virus.actualizar(gameGraph);
             mostrarVirus(virus);
         });
+        botonSalir.setOnClickListener(v ->{
+            confirmationText.setVisibility(View.VISIBLE);
+            confButtonYes.setVisibility(View.VISIBLE);
+            confButtonNo.setVisibility(View.VISIBLE);
+        });
+        confButtonYes.setOnClickListener(v->{
+            startActivity(new Intent(MapActivity.this,MainActivity .class));
+        });
+        confButtonNo.setOnClickListener(v->{
+            confirmationText.setVisibility(View.INVISIBLE);
+            confButtonYes.setVisibility(View.INVISIBLE);
+            confButtonNo.setVisibility(View.INVISIBLE);
+        });
+        confirmationText.setVisibility(View.INVISIBLE);
+        confButtonYes.setVisibility(View.INVISIBLE);
+        confButtonNo.setVisibility(View.INVISIBLE);
 
         imagenMapa = (ImageView) findViewById(R.id.imagen_mapa);
         mapaZonas = (ImageView) findViewById(R.id.mapa_areas_colores);
@@ -68,36 +89,38 @@ public class MapActivity extends AppCompatActivity {
         botonInfectar.setOnClickListener((View.OnClickListener) v -> {
             lugar = (TextView) findViewById(R.id.lugar);
             String ciudad = (String) lugar.getText();
-            boolean isEveryoneDead= virus.isEveryoneDead(gameGraph);
-            if (isEveryoneDead){
-                finishing();
+            if(gameGraph.get(ciudad).getSanos()<=0){
+                notText.setVisibility(View.VISIBLE);
             }
-            if ((turno > -1) || (gameGraph.get(ciudad) != null)) {
-                if (turno > -1) {
-                    gameGraph = viajes(gameGraph);
-                    for (String c : infectadas) {
-                        gameGraph = propagacion(gameGraph,c);
+            else{
+                if ((turno > -1) || (gameGraph.get(ciudad) != null)) {
+                    if (turno > -1) {
+                        gameGraph = viajes(gameGraph);
+                        for (String c : infectadas) {
+                            gameGraph = propagacion(gameGraph,c);
+                        }
                     }
+                    else {   // Primer turno, hace falta ciudad
+                        gameGraph.get(ciudad).sumSanos(-10);
+                        gameGraph.get(ciudad).sumInfectados(10);
+                        botonInfectar.setText("Siguiente turno");
+                        infectadas.add(ciudad);
+                    }
+                    if (gameGraph.get(ciudad) != null) {
+                        cambiarDatosLateral(ciudad,
+                                gameGraph.get(ciudad).getSanos(),
+                                gameGraph.get(ciudad).getInfectados(),
+                                gameGraph.get(ciudad).getMuertos());
+                    }else{
+                        virus.actualizar(gameGraph);
+                        mostrarVirus(virus);
+                    }
+                    turno++;
+                    String aux = "Turno " + turno;
+                    textTurno.setText(aux);
                 }
-                else {   // Primer turno, hace falta ciudad
-                    gameGraph.get(ciudad).sumSanos(-10);
-                    gameGraph.get(ciudad).sumInfectados(10);
-                    botonInfectar.setText("Siguiente turno");
-                    infectadas.add(ciudad);
-                }
-                if (gameGraph.get(ciudad) != null) {
-                    cambiarDatosLateral(ciudad,
-                            gameGraph.get(ciudad).getSanos(),
-                            gameGraph.get(ciudad).getInfectados(),
-                            gameGraph.get(ciudad).getMuertos());
-                }else{
-                    virus.actualizar(gameGraph);
-                    mostrarVirus(virus);
-                }
-                turno++;
-                String aux = "Turno " + turno;
-                textTurno.setText(aux);
             }
+
 
         });
         colorToCity.put(Color.parseColor("#A24FFF"),"Valladolid");
@@ -122,19 +145,6 @@ public class MapActivity extends AppCompatActivity {
         colorToCity.put(Color.parseColor("#434343"),"Melilla");
         colorToCity.put(Color.parseColor("#DFFF74"),"Las Palmas de Gran Canaria");
         colorToCity.put(Color.parseColor("#728926"),"Santa Cruz de Tenerife");
-    }
-
-    private void finishing() {
-        AlertDialog.Builder alert= new AlertDialog.Builder(this);
-        alert.setMessage("Has Ganado!!!\n"+"España ha sido exterminada" );
-        alert.setPositiveButton("Salir", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        AlertDialog dialog= alert.create();
-        dialog.show();
     }
 
     public void cambiarDatosLateral(String sLugar, int numSanos, int numInfectados, int numMuertos){
@@ -164,12 +174,12 @@ public class MapActivity extends AppCompatActivity {
         int color = colorDePunto(coord_x,coord_y);
         String sitio = "España";
         sitio=colorToCity.get(color);
-        
+
         System.out.println(sitio);
         if (gameGraph.get(sitio) != null){
-        System.out.println("Sanos: " + gameGraph.get(sitio).getSanos());
-        System.out.println("Infectados: " + gameGraph.get(sitio).getInfectados());
-        System.out.println("Muertos: " + gameGraph.get(sitio).getMuertos());
+            System.out.println("Sanos: " + gameGraph.get(sitio).getSanos());
+            System.out.println("Infectados: " + gameGraph.get(sitio).getInfectados());
+            System.out.println("Muertos: " + gameGraph.get(sitio).getMuertos());
             cambiarDatosLateral(sitio,
                     gameGraph.get(sitio).getSanos(),
                     gameGraph.get(sitio).getInfectados(),
@@ -186,17 +196,6 @@ public class MapActivity extends AppCompatActivity {
         Bitmap puntos = Bitmap.createBitmap(this.mapaZonas.getDrawingCache());
         this.mapaZonas.setDrawingCacheEnabled(false);
         return puntos.getPixel(x,y);
-    }
-
-    public boolean colorSimilar (int color1, int color2) {
-        int tolerancia = 25;
-        if (Math.abs (Color.red (color1) - Color.red (color2)) > tolerancia )
-            return false;
-        if (Math.abs (Color.green (color1) - Color.green (color2)) > tolerancia )
-            return false;
-        if (Math.abs (Color.blue (color1) - Color.blue (color2)) > tolerancia )
-            return false;
-        return true;
     }
 
     /***************
@@ -267,7 +266,6 @@ public class MapActivity extends AppCompatActivity {
     /***********************
      * ECUACIONES DEL VIRUS Y DE LOS VIAJES (Y SUS MÉTODOS)
      */
-    Random rand = new Random();
     float d_min = Float.MAX_VALUE;
     ConcurrentHashMap<String, Ciudad> propagacion(ConcurrentHashMap<String, Ciudad> grafo, String nomCiudad){ //Devuelve el grafo
         Ciudad ciudad = grafo.remove(nomCiudad);
@@ -301,7 +299,7 @@ public class MapActivity extends AppCompatActivity {
             ciudad.setMuertos(ciudad.getMuertos() +ciudad.getInfectados());
             ciudad.setInfectados(0);
         }
-        
+
         grafo.put(nomCiudad, ciudad);
         return grafo;
     }
