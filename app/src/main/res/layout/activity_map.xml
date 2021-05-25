@@ -13,11 +13,14 @@
         android:id="@+id/confirmationYes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="120dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="170dp"
         android:text="Si"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmationText"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/patron_azul_covid"
@@ -241,21 +244,20 @@
         android:id="@+id/confirmationNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="191dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginBottom="12dp"
         android:text="No, volver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmationText"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/notificationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No queda gente en esta provincia"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="236dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="45dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
